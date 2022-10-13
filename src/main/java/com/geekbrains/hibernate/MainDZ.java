@@ -7,9 +7,13 @@ public class MainDZ {
 //        product.setTitle("Apple");
 //        product.setCost(76);
 //        productDao.saveOrUpdate(product);
-        System.out.println(productDao.findById(4));
-        System.out.println(productDao.findAll());
-        productDao.deleteById(4);
-        System.out.println(productDao.findAll());
+//        System.out.println(productDao.findById(4));
+//        System.out.println(productDao.findAll());
+//        productDao.deleteById(4);
+//        System.out.println(productDao.findAll());
+
+        ConsumerDAO consumerDAO = new ConsumerDAO();
+//        Consumer consumer = new Consumer();
+        consumerDAO.findAllProducts(2);
     }
 }

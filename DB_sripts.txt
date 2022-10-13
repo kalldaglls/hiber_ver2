@@ -1,0 +1,35 @@
+CREATE DATABASE hiber;
+
+USE hiber;
+
+CREATE TABLE `product` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cost` int NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `product` VALUES (1,145,'prod#2'),(2,145,'prod#3'),(3,0,'Java 2'),(5,0,NULL),(6,0,NULL),(7,0,NULL),(8,0,NULL),(9,76,'Apple');
+
+SELECT * FROM product;
+
+CREATE TABLE `consumer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+SELECT * FROM consumer;
+
+INSERT INTO `consumer` VALUES (1, 'Jack'),(2, 'Andrew'),(3, 'Mathew');
+
+CREATE TABLE consumers_products (
+	consumer_id int NOT NULL,
+    product_id int NOT NULL,
+	FOREIGN KEY (consumer_id) REFERENCES consumer (id),
+    FOREIGN KEY (product_id) REFERENCES product (id)
+) ENGINE=InnoDB CHARSET=utf8;
+
+INSERT INTO consumers_products (consumer_id, product_id) VALUES (1,1), (2,2);
+
+SELECT * FROM consumers_products;
