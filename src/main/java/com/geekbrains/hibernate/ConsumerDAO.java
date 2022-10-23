@@ -3,71 +3,86 @@ package com.geekbrains.hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class ProductDao {
+public class ConsumerDAO {
 
-    public Product saveOrUpdate(Product product) {
+    public Consumer saveOrUpdate(Consumer consumer) {
 //        start();
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Consumer.class)
                 .buildSessionFactory();
         Session session = null;
         session = factory.getCurrentSession();
         session.beginTransaction();
-        product.getTitle();
-        product.getCost();
-        session.saveOrUpdate(product);
+        consumer.getName();
+        session.saveOrUpdate(consumer);
         session.getTransaction().commit();
-        System.out.println("Product saved successfully");
-        return product;
+        System.out.println("Consumer saved successfully");
+        return consumer;
     }
 
-    public Product findById(long id) {
+    public Consumer findById(long id) {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Consumer.class)
                 .buildSessionFactory();
         Session session = null;
         session = factory.getCurrentSession();
         session.beginTransaction();
-        Product product = session.get(Product.class, id);
+        Consumer consumer = session.get(Consumer.class, id);
         session.getTransaction().commit();
-        return product;
+        return consumer;
     }
 
-    public List<Product> findAll() {
+    public List<Consumer> findAll() {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Consumer.class)
                 .buildSessionFactory();
         Session session = null;
         session = factory.getCurrentSession();
         session.beginTransaction();
-        List<Product> products = session.createQuery("FROM Product", Product.class).getResultList();
+        List<Consumer> consumers = session.createQuery("FROM Consumer", Consumer.class).getResultList();
         session.getTransaction().commit();
-        return products;
+        return consumers;
     }
 
     public void deleteById(long id) {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Consumer.class)
+                .buildSessionFactory();
+        Session session = null;
+        session = factory.getCurrentSession();
+        session.beginTransaction();
+        Consumer consumer = session.get(Consumer.class, id);
+        session.delete(consumer);
+        session.getTransaction().commit();
+    }
+    @Transactional
+    public Consumer findAllProducts(long id) {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Consumer.class)
                 .addAnnotatedClass(Product.class)
                 .buildSessionFactory();
         Session session = null;
         session = factory.getCurrentSession();
         session.beginTransaction();
-        Product product = session.get(Product.class, id);
-        session.delete(product);
+        Consumer consumer = session.get(Consumer.class, id);
+        System.out.println(consumer);
         session.getTransaction().commit();
+        return consumer;
     }
 
     private void start() {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Consumer.class)
                 .buildSessionFactory();
         Session session = null;
         session = factory.getCurrentSession();
